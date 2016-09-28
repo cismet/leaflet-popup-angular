@@ -47,6 +47,15 @@
      _compile: function() {
          var that = this;
          var $injector = angular.element(document).injector();
+
+         // See 
+         if (!$injector) {
+             $injector = angular.element(document.querySelectorAll('[ng-app]')).injector();
+         }
+
+         if (!$injector) {
+             throw "L.Popup.Angular can't find your Angular app";
+         }
          var $rootScope = $injector.get('$rootScope'),
              $compile = $injector.get('$compile'),
              $controller = $injector.get('$controller');
